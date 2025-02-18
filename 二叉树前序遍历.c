@@ -6,13 +6,30 @@
  *     struct TreeNode *right;
  * };
  */
-int maxDepth(struct TreeNode* root) {
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+
+int i=0;
+int Treeprev(struct TreeNode *root,int* arr){
+    
     if(root == NULL){
         return 0;
     }
 
-    int left = maxDepth(root->left) +1;
-    int right = maxDepth(root->right) +1;
+    arr[i++] = root->val;
+    Treeprev(root->left,arr);
+    Treeprev(root->right,arr);
 
-    return left >right? left : right;
+    return i;
+
+}
+
+int* preorderTraversal(struct TreeNode* root, int* returnSize) {
+    
+    int *arr = (int*)malloc(sizeof(int)*100);
+    *returnSize = Treeprev(root,arr);
+    i=0;
+    return arr;  
+
 }
